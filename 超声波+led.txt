@@ -1,0 +1,30 @@
+int TrigPin = 8; 
+int EchoPin = 9; 
+int LedPin = 12;
+int val;  
+void setup() 
+{ 
+Serial.begin(9600); 
+pinMode(TrigPin, OUTPUT); 
+pinMode(EchoPin, INPUT); 
+pinMode(LedPin,OUTPUT);
+} 
+void loop() 
+{
+digitalWrite(TrigPin, LOW); //低高低电平发一个短时间脉冲去TrigPin 
+delayMicroseconds(2); 
+digitalWrite(TrigPin, HIGH); 
+delayMicroseconds(10);
+int cm = pulseIn(EchoPin, HIGH) / 20.0; //将回波时间换算成cm 
+cm = (int(cm * 100.0)) / 100.0; //保留两位小数 
+Serial.println(cm); //输出距离值
+Serial.println("cm"); 
+delay(50);
+if (58>=cm)
+{
+digitalWrite(LedPin, LOW);
+    delay(20);    
+}else{
+digitalWrite(LedPin,HIGH);
+}
+}
